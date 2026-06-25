@@ -36,4 +36,7 @@ public class User {
     private Role role;
     @CreationTimestamp
     private LocalDateTime createdAt;
+
+    @OneToOne(mappedBy = "user")
+    private Student student;
 }

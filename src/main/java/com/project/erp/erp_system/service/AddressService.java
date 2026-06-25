@@ -1,5 +1,7 @@
 package com.project.erp.erp_system.service;
 
+import com.project.erp.erp_system.dto.AddressRequest;
+import com.project.erp.erp_system.dto.AddressResponse;
 import com.project.erp.erp_system.entity.Address;
 import com.project.erp.erp_system.repository.AddressRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,22 +12,54 @@ import java.util.List;
 @Service
 public class AddressService {
 
+    private Address mapToEntity(AddressRequest request) {
+        Address address = new Address();
+        address.setLocality(request.getLocality());
+        address.setCity(request.getCity());
+        address.setDistrict(request.getDistrict());
+        address.setState(request.getState());
+        address.setCountry(request.getCountry());
+        address.setPincode(request.getPincode());
+
+        return address;
+    }
+
+    private AddressResponse mapToResponse(Address address) {
+        AddressResponse response = new AddressResponse();
+
+        response.setId(address.getId());
+        response.setCity(address.getCity());
+        response.setLocality(address.getLocality());
+        response.setDistrict(address.getDistrict());
+        response.setState(address.getState());
+        response.setCountry(address.getCountry());
+        response.setPincode(address.getPincode());
+
+        return response;
+    }
+
     @Autowired
     private AddressRepository addressRepository;
 
-    public Address createAddress(Address address) {
-        return addressRepository.save(address);
+    public AddressResponse createAddress(AddressRequest request) {
+        Address address = mapToEntity(request);
+        Address savedAddress = addressRepository.save(address);
+        return mapToResponse(savedAddress);
     }
 
-    public Address getAddressById(Long id) {
-        return addressRepository.findById(id).orElseThrow();
+    public AddressResponse getAddressById(Long id) {
+        Address address = addressRepository.findById(id).orElseThrow();
+        return mapToResponse(address);
     }
 
-    public List<Address> getAllAddress() {
-        return addressRepository.findAll();
+    public List<AddressResponse> getAllAddress() {
+        return addressRepository.findAll()
+                .stream()
+                .map(this::mapToResponse)
+                .toList();
     }
 
-    public Address updateAddress(Long id, Address update) {
+    public AddressResponse updateAddress(Long id, AddressRequest update) {
         Address address = addressRepository.findById(id).orElseThrow();
         address.setLocality(update.getLocality());
         address.setCity(update.getCity());
@@ -34,7 +68,8 @@ public class AddressService {
         address.setCountry(update.getCountry());
         address.setPincode(update.getPincode());
 
-        return addressRepository.save(address);
+        Address savedAddress = addressRepository.save(address);
+        return mapToResponse(savedAddress);
     }
 
     public void deleteAddress(Long id) {

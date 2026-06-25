@@ -47,4 +47,8 @@ public class Faculty {
     @NotNull
     @Positive
     private BigDecimal salary;
+
+    @ManyToOne
+    @JoinColumn(name = "department_id", nullable = false)
+    private Department department;
 }

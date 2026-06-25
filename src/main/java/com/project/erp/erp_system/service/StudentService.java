@@ -23,7 +23,6 @@ public class StudentService {
         student.setLastName(request.getLastName());
         student.setEmail(request.getEmail());
         student.setPhone(request.getPhone());
-        student.setCourse(request.getCourse());
 
         return student;
     }
@@ -37,7 +36,6 @@ public class StudentService {
         response.setLastName(student.getLastName());
         response.setEmail(student.getEmail());
         response.setPhone(student.getPhone());
-        response.setCourse(student.getCourse());
 
         return response;
     }
@@ -67,7 +65,6 @@ public class StudentService {
         student.setLastName(updateStudent.getLastName());
         student.setEmail(updateStudent.getEmail());
         student.setPhone(updateStudent.getPhone());
-        student.setCourse(updateStudent.getCourse());
 
         Student updatedStudent = studentRepository.save(student);
         return mapToResponse(updatedStudent);

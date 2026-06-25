@@ -33,4 +33,7 @@ public class Address {
     )
     private String pincode;
 
+    @OneToOne(mappedBy = "address")
+    private Student student;
+
 }

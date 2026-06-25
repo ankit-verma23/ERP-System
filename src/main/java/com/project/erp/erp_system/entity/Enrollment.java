@@ -28,4 +28,9 @@ public class Enrollment {
     @Enumerated(EnumType.STRING)
     @NotNull
     private EnrollmentStatus status;
+
+    @ManyToOne
+    @JoinColumn(name = "student_id", nullable = false)
+    private Student student;
+
 }
