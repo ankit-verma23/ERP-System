@@ -34,4 +34,15 @@ public class Course {
 
     @ManyToMany(mappedBy = "courses")
     private List<Student> students = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "faculty_id")
+    private Faculty faculty;
+
+    @OneToMany(mappedBy = "courses")
+    private List<Enrollment> enrollment;
+
+    @ManyToOne
+    @JoinColumn(name = "department_id")
+    private Department department;
 }

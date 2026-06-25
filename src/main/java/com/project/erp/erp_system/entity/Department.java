@@ -25,4 +25,7 @@ public class Department {
 
     @OneToMany(mappedBy = "department")
     private List<Faculty> faculty;
+
+    @OneToMany(mappedBy = "department")
+    private List<Course> course;
 }
